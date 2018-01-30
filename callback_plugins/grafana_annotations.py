@@ -1,6 +1,20 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
+import os
+import json
+import socket
+import getpass
+from datetime import datetime
+
+try:
+    import httplib
+except ImportError:
+    # Python 3
+    import http.client as httplib
+
+from ansible.plugins.callback import CallbackBase
+
 DOCUMENTATION = '''
     callback: grafana_annotations
     type: notification
@@ -32,21 +46,6 @@ DOCUMENTATION = '''
         env:
           - name: GRAFANA_API_TOKEN
 '''
-
-import os
-import json
-import socket
-import getpass
-from datetime import datetime
-
-try:
-    import httplib
-except ImportError:
-    # Python 3
-    import http.client as httplib
-
-from ansible.plugins.callback import CallbackBase
-
 
 PLAYBOOK_START_TXT = """\
 Started playbook {playbook}
