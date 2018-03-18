@@ -47,11 +47,11 @@ DOCUMENTATION = '''
         description: Grafana password used for authentication. Ignored if api_key is provided.
         env:
           - name: GRAFANA_PASSWORD
-      grafana_dashboard:
+      grafana_dashboard_id:
         description: The grafana dashboard id where the annotation shall be created.
         env:
           - name: GRAFANA_DASHBOARD_ID
-      grafana_panel:
+      grafana_panel_id:
         description: The grafana panel id where the annotation shall be created.
         env:
           - name: GRAFANA_PANEL_ID
@@ -100,15 +100,6 @@ class CallbackModule(CallbackBase):
         callback_plugins   = <path_to_callback_plugins_folder>
         callback_whitelist = grafana_annotations
     and put the plugin in <path_to_callback_plugins_folder>
-
-    This plugin makes use of the following environment variables:
-        GRAFANA_HOST     (optional) : Grafana server host and port.
-                                      Defaults to 127.0.0.1:3000
-        GRAFANA_API_KEY  (optional) : Grafana API key used for authentication.
-        GRAFANA_USER     (optional) : Grafana user used for authentication.
-        GRAFANA_PASSWORD (optional) : Grafana password used for authentication.
-        GRAFANA_PANEL_ID (optional) : Grafana panel id where the annotation is emitted.
-        GRAFANA_DASHBOARD_ID (optional) : Grafana dashboard id where the annotation is emitted.
     """
 
     CALLBACK_VERSION = 1.0
@@ -123,14 +114,14 @@ class CallbackModule(CallbackBase):
         self.secure = int(os.getenv('GRAFANA_SECURE', 0))
         if self.secure not in [0, 1]:
             self.secure = 0
-        token = os.getenv('GRAFANA_API_KEY', None)
+        api_key = os.getenv('GRAFANA_API_KEY', None)
         grafana_user = os.getenv('GRAFANA_USER', None)
         grafana_password = os.getenv('GRAFANA_PASSWORD', '')
         self.dashboard_id = os.getenv('GRAFANA_DASHBOARD_ID', None)
         self.panel_id = os.getenv('GRAFANA_PANEL_ID', None)
 
-        if token:
-            authorization = "Bearer %s" % token
+        if api_key:
+            authorization = "Bearer %s" % api_key
         elif grafana_user is not None:
             authorization = "Basic %s" % b64encode("%s:%s" % (grafana_user, grafana_password))
         else:
