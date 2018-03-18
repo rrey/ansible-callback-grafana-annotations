@@ -1,10 +1,28 @@
 language: python
-sudo: required
 python:
-    - "2.7"
-install:
+- '2.6'
+stages:
+- linter
+- test-basic-auth
+jobs:
+  include:
+  - stage: linter
+    install:
     - pip install -r requirements.txt
-script:
-    - make check
-services:
-    - docker
+    script:
+    - make syntax
+  - stage: test-basic-auth
+    install:
+    - pip install -r requirements.txt
+    env:
+    - secure: Bv8kXVD9Zy2+nSVcIUcGwupC/3/0hJIzpfsPk9+4fpDKARBxMdCv5AsshoPr6HbuVKucOCALd9sSyTTlTEjOSVGwfmYDvlxtq3tG5b1l0dD6wyoE70B2SzQ+oGcAasufXPe+wrPJbnygG3j8yLZ3IKeSzWkpuDkAc2TxWIPlbrYHTGu2IfouhCxDtZavbxzSQ/U5tXIUdqq7g5Oeb6W0Au8TalAsnVl0bKjTNp0tbxfMJ6DXQNYj20pdpom/Fb2uTY6SA9xiTBLLyrTc1tM6MvYHYtLCTHLLNIcZoEgbug6Bo5lbXp//ODBCzNiktof/Tg9tvtHQLL0nVGWVtHnnYwFn2SfPqq9uCN3YNga9dZwHaLhhJhMTK5tcVdGagyawPLkcjtcRfW//CnWGJg5ZP1SlPnMHANy86esUQb6tqECn0HaNEhBHlvGzDCmHb71R0eS0zHFvmlabnzpm+uIGEI5DFzbeNKAy0pHE8YNrIuoqyQJc5hu32DjYZbozFED4JHVezRn6yuzArRXN/3sTeJYhtW9Jzn3wKejXDw06xOZnbFcvxH9De4MvQ7MW2iI8vQxTY46I22Vxs+ouXtE/x0yUNSfA6ERDl6zvc4QAnaB8ScoLvhymSCYw5VcA+PNKfCaY7lgumYSs3iwc+l12fb5Dt56Qo1WuJexLAxcXaMA=
+    - secure: onS72up7xaCe+AQ+WGXO51oyCSzAMUHWIH8Yf9DOLXWI3SoGE2a+o96TBmHKpne1+oQFHxB1QVPiOlCefdmeDbphwhvzjl6DxMZXdNgS71YAzRzcg8G5ChE9LZZZrRBXcUu235OFxG6m9dkPlVN37wIwrN3h+g+KBwpBpcJoV7Z8uS0VngYlH3wFudAsQ1fCgq8hfoFQmm6Ji9UD9BxAwzGX2zsHdslwhDKubBJY5WL+c5Sc5rjOzVLh+nFEEvbw0++zVCC7mMs8wX97EVaacAn6xbykzKuEqKMcheDIYB6BivAJAjPW+TKzo5i8MblAL0wJQJrIn6/2DiyMnAD7xoEhc1myh+vX9RH63det+GwYrPLjHabya18IIuOOxaa0I0fAtygQsHnbfnlnDxZp3/EzhCtpcs8H9C8QCs+kTkWjyv5LikJDGKCyYL0KHfkpPKpFCqKbZk+VXfsqJIWQlUrJUdd6cijcmPK3rt2Wj3tjLwf2y+Y1JkbnM5UCNq8qJk+YaQUbs+UHi3GtKpt1wQlvKHNQj2OkYvc+dpVPeDW43kNjJ7eiEa27DBVCCpCA95OrAbxNbvYf+Xb80ZaxmHkU6K+XlWg7S6NlrSp315UI6hHNQzYZ3Mw3NqR55l9tK4YoTKt+TlpFhazPODK/S1dgZvCMbPk0NwBZTMG1k0k=
+    script:
+    - make travis-check
+  - stage: test-token
+    install:
+    - pip install -r requirements.txt
+    env:
+    - secure: OKohVOEy2nBGdk4qsIVNVBnh/lcDpiXsL76ssgfKLnp2VOal/CjytwnpLw7c48cX9ICMnvNiK8ZixAQ0McXx1rI9FGVpX/9GDqNKN6p/lr/OBGn3QPGtjUehUVeKDjBPi2g28Sd6EEiUdMG2oauBErjX6QzDZ0mFrYwoNKzmuExve1Zbyqaom47Quzx6OdWEk9AuvMC10gj3bObjX05wm+GvZHRPv+InIn2Qd1l4HzC4e4YhYWN+znLo9z18G1b6JXeA1Bdp3pTfXRb/SxRUwjB6pG3tu3O7dHtm9ZzIzJgY3uY0Xtrt2q1ypeu84LMru8g0pyO8UAe7F77afw7xoxeoTE9uxY3soZcqjzhRV+a2lc3dpHQv0r6rPNHh4W2lEncEtj/SCasSr3jsv0KUtZdqe+1882P+gN+bzMnmGxp3wO7bRGQUAb6dsbvL1GmFU6g7eCOqQ3f/P6tFNtZdbIGWekN1M/lpCrlkQ8+rd9kCC8ntrdx52ROWB4yaM1x6XXAnDjOPNf//X5FpM1xO+w2JrjdRQEBMqX2oTz74BIJYkaUZevyFg4OKGUGLXUsHL1+wd/5fM8nWnmMhiTq5u7g90hnpXU/+8GRD1D36woVbg6oS+xstfSXnC7TkkvlJKWQXB80kOIaeVwMrs5MhMQ91HTle8eUZ9YS0Aw37bzo=
+    script:
+    - make travis-check
