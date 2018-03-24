@@ -8,10 +8,11 @@ Automatically publish annotations in grafana when you execute your playbooks !
 * Export the required environement variables:
 
 ```
-$ export GRAFANA_HOST=<your_grafana_server_address>:<your_grafana_server_port>
-$ export GRAFANA_SECURE=0                           # 0 for HTTP, 1 for HTTPS
-$ export GRAFANA_API_KEY=<your_grafana_api_token>
+$ export GRAFANA_URL=<your_grafana_url>
 ```
+
+The URL must be the Grafana annotations api URL, example: http://<some_address>/api/annotations
+The protocal can be either http or https.
 
 For token based authentication:
 
