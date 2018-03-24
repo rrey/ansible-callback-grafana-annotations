@@ -2,6 +2,24 @@
 
 Automatically publish annotations in grafana when you execute your playbooks !
 
+# Configuration
+
+The configuration can be set through ansible cfg by declaring te callback section.
+The following configuration represent the default values:
+
+```
+[callback_grafana_annotations]
+
+grafana_url = "http://127.0.0.1:3000/api/annotations"
+validate_grafana_certs = 1
+http_agent = 'Ansible (grafana_annotations callback)'
+grafana_user = ansible
+grafana_password = ansible
+```
+
+The configuration can be overridden using environment variables.
+Check the DOCUMENTATION string to have the full list of parameters.
+
 # Quickstart
 
 * Copy the callback_plugins directory in you playbook directory
@@ -27,7 +45,7 @@ $ export GRAFANA_USER=<your_grafana_user>
 $ export GRAFANA_PASSWORD=<your_grafana_user_password>
 ```
 
-* Run you playbook:
+* Run your playbook:
 ```
 $ ansible-playbook test.yml
 ```
