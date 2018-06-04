@@ -1,6 +1,7 @@
 # ansible callback grafana_annotations
 
 Automatically publish annotations in grafana when you execute your playbooks !
+This callback was accepted in Ansible and should be available in version 2.6
 
 # Configuration
 
