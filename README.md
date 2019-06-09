@@ -1,3 +1,5 @@
+DEPRECATED: This plugin is part of ansible since 2.6. Patches shall be performed there.
+
 # ansible callback grafana_annotations
 
 Automatically publish annotations in grafana when you execute your playbooks !
