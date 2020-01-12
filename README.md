@@ -1,4 +1,4 @@
-DEPRECATED: This plugin is part of ansible since 2.6. Patches shall be performed there.
+DEPRECATED: This plugin is now maintained under the [Grafana Collection](https://github.com/ansible-collections/grafana), please report any issue there.
 
 # ansible callback grafana_annotations
 
